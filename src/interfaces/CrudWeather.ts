@@ -1,3 +1,3 @@
 export interface crudWeather {
-  getWeather: () => any
+  getWeather: (country: any) => any
 }
