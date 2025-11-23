@@ -1,3 +1,3 @@
 export interface crudWeather {
-  getWeather: () => void
+  getWeather: () => any
 }
