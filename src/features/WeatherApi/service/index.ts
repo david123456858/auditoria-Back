@@ -8,7 +8,7 @@ import axios from 'axios'
 export class serviceWeatherApi implements crudWeather {
   async getWeather (country: string): Promise<ISuccessProcess<any> | IFailureProcess<any> > {
     try {
-      const reponseWeather = await axios.get(`https://api.weatherapi.com/v1/current.json?key=${process.env.WEATHER_SECRET}&q=${country}&aqi=no`)
+      const reponseWeather = await axios.get(`${process.env.WEATHER_URL}/current.json?key=${process.env.WEATHER_SECRET}&q=${country}&aqi=no`)
 
       return SuccessProcess(reponseWeather.data, reponseWeather.status)
     } catch (error) {
