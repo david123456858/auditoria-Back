@@ -8,7 +8,7 @@ import axios from 'axios'
 export class serviceOpenWeatherApi implements crudWeather {
   async getWeather (country: string): Promise<ISuccessProcess<any> | IFailureProcess<any> > {
     try {
-      const reponseWeather = await axios.get(`${process.env.OPENWEATHER_BASE_URL}/direct?q=${country}&limit=5&appid=${process.env.OPENWATHER_KEY}`)
+      const reponseWeather = await axios.get(`${process.env.OPENWEATHER_BASE_URL}/weather?q=${country}&appid=${process.env.OPENWATHER_KEY}`)
 
       return SuccessProcess(reponseWeather.data, reponseWeather.status)
     } catch (error) {
