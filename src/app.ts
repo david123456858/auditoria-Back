@@ -6,6 +6,7 @@ import 'dotenv/config'
 import { config } from './config/base'
 import { routeWeatherApi } from './features/WeatherApi/router'
 import { routeOpenWeatherApi } from './features/OpenWeather/router'
+import { routeApiMaliciosa } from './features/Api/router'
 
 const app: Application = express()
 
@@ -28,6 +29,7 @@ app.get('/', (_req: Request, res: Response) => {
 
 app.use('/api', routeWeatherApi())
 app.use('/api', routeOpenWeatherApi())
+app.use('/api', routeApiMaliciosa())
 
 // Ports
 app.listen(config.PORT, () => {
