@@ -3,17 +3,7 @@
 import { FailureProccess, SuccessProcess } from '../../../helpers/result'
 import { IFailureProcess, ISuccessProcess } from '../../../interfaces/IResult'
 
-/**
- * Service para simular respuestas maliciosas y corruptas
- * Usado exclusivamente para auditoría de seguridad del frontend
- */
 export class ServiceApiMaliciosa {
-  /**
-   * XSS ATTACK: Inyección de scripts maliciosos en campos de respuesta
-   * Simula una API comprometida que retorna código JavaScript ejecutable
-   * El frontend debe sanitizar estos datos antes de renderizarlos
-   * @param country - País/ciudad solicitada (se inyecta con XSS)
-   */
   async getXSSPayload (country: string): Promise<ISuccessProcess<any> | IFailureProcess<any>> {
     try {
       const xssPayload = {
@@ -54,12 +44,6 @@ export class ServiceApiMaliciosa {
     }
   }
 
-  /**
-   * BROKEN JSON: Retorna JSON mal formado o corrupto
-   * Simula errores de serialización o corrupción de datos
-   * El frontend debe manejar errores de parsing gracefully
-   * @param country - País/ciudad para incluir en el JSON corrupto
-   */
   async getBrokenJSON (country: string): Promise<ISuccessProcess<any> | IFailureProcess<any>> {
     try {
       // Retornamos diferentes tipos de JSON corruptos con el país del usuario
@@ -95,13 +79,6 @@ export class ServiceApiMaliciosa {
     }
   }
 
-  /**
-   * SLOW RESPONSE: Simula latencia extrema en la API
-   * Prueba timeouts, loading states y user experience
-   * Configurable entre 3-10 segundos de delay
-   * @param country - País/ciudad para incluir en la respuesta
-   * @param delaySeconds - Segundos de delay (default: 5)
-   */
   async getSlowResponse (country: string, delaySeconds: number = 5): Promise<ISuccessProcess<any> | IFailureProcess<any>> {
     try {
       // Simulamos delay de red extremo
@@ -123,12 +100,6 @@ export class ServiceApiMaliciosa {
     }
   }
 
-  /**
-   * ERROR RESPONSE: Simula diferentes códigos de error HTTP
-   * Prueba manejo de errores: 400, 401, 403, 404, 429, 500, 502, 503, 504
-   * @param country - País/ciudad que se estaba buscando
-   * @param errorCode - Código HTTP específico (opcional)
-   */
   async getErrorResponse (country: string, errorCode?: number): Promise<ISuccessProcess<any> | IFailureProcess<any>> {
     const errorCodes = [400, 401, 403, 404, 429, 500, 502, 503, 504]
     const code = errorCode ?? errorCodes[Math.floor(Math.random() * errorCodes.length)]
@@ -148,12 +119,6 @@ export class ServiceApiMaliciosa {
     return FailureProccess(errorMessages[code] || `Unknown error for ${country}`, code)
   }
 
-  /**
-   * DATA OVERFLOW: Retorna cantidades masivas de datos
-   * Simula APIs sin paginación o con límites excesivos
-   * Prueba performance y límites de memoria del frontend
-   * @param country - País/ciudad para incluir en los datos masivos
-   */
   async getOverflowData (country: string): Promise<ISuccessProcess<any> | IFailureProcess<any>> {
     try {
       // Generamos string gigante con el nombre del país repetido
@@ -208,12 +173,6 @@ export class ServiceApiMaliciosa {
     }
   }
 
-  /**
-   * CONTRACT CHANGE: Retorna estructura diferente a la esperada
-   * Simula cambios breaking en la API sin versionado
-   * El frontend debe manejar campos faltantes/extras/renombrados
-   * @param country - País/ciudad para incluir en estructura alterada
-   */
   async getContractChange (country: string): Promise<ISuccessProcess<any> | IFailureProcess<any>> {
     try {
       // Estructura completamente diferente a la esperada
@@ -279,12 +238,6 @@ export class ServiceApiMaliciosa {
     }
   }
 
-  /**
-   * RANDOM CORRUPTION: Combina múltiples ataques aleatoriamente
-   * Simula APIs inestables o comprometidas
-   * Testing más realista de robustez general
-   * @param country - País/ciudad para incluir en ataques
-   */
   async getRandomCorruption (country: string): Promise<ISuccessProcess<any> | IFailureProcess<any>> {
     try {
       const attacks = [
@@ -364,11 +317,6 @@ export class ServiceApiMaliciosa {
     }
   }
 
-  /**
-   * TYPE CONFUSION: Retorna tipos de datos incorrectos
-   * Números como strings, strings como arrays, etc.
-   * @param country - País/ciudad para incluir con tipos confusos
-   */
   async getTypeConfusion (country: string): Promise<ISuccessProcess<any> | IFailureProcess<any>> {
     try {
       const confusedTypes = {
@@ -391,10 +339,6 @@ export class ServiceApiMaliciosa {
     }
   }
 
-  /**
-   * ENCODING ISSUES: Problemas de encoding y caracteres especiales
-   * @param country - País/ciudad para probar diferentes encodings
-   */
   async getEncodingIssues (country: string): Promise<ISuccessProcess<any> | IFailureProcess<any>> {
     try {
       const encodingProblems = {
@@ -418,10 +362,6 @@ export class ServiceApiMaliciosa {
     }
   }
 
-  /**
-   * RATE LIMIT SIMULATION: Simula rate limiting de la API
-   * @param country - País/ciudad que se estaba buscando
-   */
   async getRateLimitError (country: string): Promise<ISuccessProcess<any> | IFailureProcess<any>> {
     const retryAfter = Math.floor(Math.random() * 300) + 60 // 60-360 segundos
 

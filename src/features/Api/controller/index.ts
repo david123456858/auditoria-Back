@@ -21,19 +21,6 @@ export class controllerApiMaliciosa {
     this.getRateLimitError = this.getRateLimitError.bind(this)
   }
 
-  /**
-   * XSS ATTACK ENDPOINT
-   * GET /api/maliciosa/xss/:country
-   *
-   * Ataque: Inyección de código JavaScript malicioso
-   * Objetivo: Verificar sanitización de datos en el frontend
-   *
-   * El frontend debe:
-   * - Escapar HTML antes de renderizar
-   * - Usar textContent en vez de innerHTML
-   * - Sanitizar con DOMPurify o similar
-   * - Validar datos antes de mostrarlos
-   */
   async getXSSPayload (req: Request, res: Response, next: NextFunction): Promise<void> {
     const country = req.params.country || 'Madrid'
     const result = await this.service.getXSSPayload(country)
@@ -53,19 +40,6 @@ export class controllerApiMaliciosa {
     })
   }
 
-  /**
-   * BROKEN JSON ENDPOINT
-   * GET /api/maliciosa/broken-json/:country
-   *
-   * Ataque: JSON mal formado o corrupto
-   * Objetivo: Probar manejo de errores de parsing
-   *
-   * El frontend debe:
-   * - Usar try-catch en JSON.parse()
-   * - Mostrar error amigable al usuario
-   * - No crashear la aplicación
-   * - Loggear el error para debugging
-   */
   async getBrokenJSON (req: Request, res: Response, next: NextFunction): Promise<void> {
     const country = req.params.country || 'Madrid'
     const result = await this.service.getBrokenJSON(country)
@@ -85,19 +59,6 @@ export class controllerApiMaliciosa {
       .send(result.value)
   }
 
-  /**
-   * SLOW RESPONSE ENDPOINT
-   * GET /api/maliciosa/slow/:country?delay=5
-   *
-   * Ataque: Latencia extrema (3-10 segundos)
-   * Objetivo: Probar timeouts y loading states
-   *
-   * El frontend debe:
-   * - Mostrar loading spinner
-   * - Implementar timeout de request
-   * - Permitir cancelar la petición
-   * - Mantener UI responsive
-   */
   async getSlowResponse (req: Request, res: Response, next: NextFunction): Promise<void> {
     const country = req.params.country || 'Madrid'
     const delay = parseInt(req.query.delay as string) || 5
@@ -120,19 +81,6 @@ export class controllerApiMaliciosa {
     })
   }
 
-  /**
-   * ERROR RESPONSE ENDPOINT
-   * GET /api/maliciosa/error/:country?code=500
-   *
-   * Ataque: Códigos HTTP de error variados
-   * Objetivo: Probar manejo de errores HTTP
-   *
-   * El frontend debe:
-   * - Detectar el código de error
-   * - Mostrar mensaje apropiado según el código
-   * - Intentar retry en errores 5xx
-   * - No retryar en errores 4xx
-   */
   async getErrorResponse (req: Request, res: Response, next: NextFunction): Promise<void> {
     const country = req.params.country || 'Madrid'
     const errorCode = parseInt(req.query.code as string) || undefined
@@ -153,20 +101,6 @@ export class controllerApiMaliciosa {
     })
   }
 
-  /**
-   * DATA OVERFLOW ENDPOINT
-   * GET /api/maliciosa/overflow/:country
-   *
-   * Ataque: Cantidades masivas de datos (10MB+)
-   * Objetivo: Probar límites de memoria y performance
-   *
-   * El frontend debe:
-   * - Implementar paginación
-   * - Virtualización de listas largas
-   * - Limitar datos mostrados
-   * - Monitorear uso de memoria
-   * - Mostrar warning si el payload es muy grande
-   */
   async getOverflowData (req: Request, res: Response, next: NextFunction): Promise<void> {
     const country = req.params.country || 'Madrid'
     const result = await this.service.getOverflowData(country)
@@ -186,20 +120,6 @@ export class controllerApiMaliciosa {
     })
   }
 
-  /**
-   * CONTRACT CHANGE ENDPOINT
-   * GET /api/maliciosa/contract-change/:country
-   *
-   * Ataque: Estructura de datos diferente a la esperada
-   * Objetivo: Probar robustez ante cambios de API
-   *
-   * El frontend debe:
-   * - Validar estructura de respuesta
-   * - Usar valores por defecto para campos faltantes
-   * - No crashear con campos extra
-   * - Manejar tipos de datos inesperados
-   * - Loggear discrepancias
-   */
   async getContractChange (req: Request, res: Response, next: NextFunction): Promise<void> {
     const country = req.params.country || 'Madrid'
     const result = await this.service.getContractChange(country)
@@ -219,19 +139,6 @@ export class controllerApiMaliciosa {
     })
   }
 
-  /**
-   * RANDOM CORRUPTION ENDPOINT
-   * GET /api/maliciosa/random/:country
-   *
-   * Ataque: Combinación aleatoria de ataques
-   * Objetivo: Testing realista de robustez general
-   *
-   * El frontend debe:
-   * - Manejar cualquier tipo de corrupción
-   * - No asumir formato específico
-   * - Validar todos los datos
-   * - Recuperarse gracefully de errores
-   */
   async getRandomCorruption (req: Request, res: Response, next: NextFunction): Promise<void> {
     const country = req.params.country || 'Madrid'
     const result = await this.service.getRandomCorruption(country)
@@ -251,19 +158,6 @@ export class controllerApiMaliciosa {
     })
   }
 
-  /**
-   * TYPE CONFUSION ENDPOINT
-   * GET /api/maliciosa/type-confusion/:country
-   *
-   * Ataque: Tipos de datos incorrectos
-   * Objetivo: Probar validación de tipos
-   *
-   * El frontend debe:
-   * - Validar tipos antes de usar
-   * - Convertir tipos cuando sea necesario
-   * - No asumir tipos implícitamente
-   * - Usar TypeScript guards
-   */
   async getTypeConfusion (req: Request, res: Response, next: NextFunction): Promise<void> {
     const country = req.params.country || 'Madrid'
     const result = await this.service.getTypeConfusion(country)
@@ -283,19 +177,6 @@ export class controllerApiMaliciosa {
     })
   }
 
-  /**
-   * ENCODING ISSUES ENDPOINT
-   * GET /api/maliciosa/encoding/:country
-   *
-   * Ataque: Problemas de encoding y caracteres especiales
-   * Objetivo: Probar manejo de diferentes encodings
-   *
-   * El frontend debe:
-   * - Manejar UTF-8 correctamente
-   * - Escapar caracteres especiales
-   * - Decodificar HTML entities si es necesario
-   * - Mostrar emojis correctamente
-   */
   async getEncodingIssues (req: Request, res: Response, next: NextFunction): Promise<void> {
     const country = req.params.country || 'Madrid'
     const result = await this.service.getEncodingIssues(country)
@@ -315,19 +196,6 @@ export class controllerApiMaliciosa {
     })
   }
 
-  /**
-   * RATE LIMIT ENDPOINT
-   * GET /api/maliciosa/rate-limit/:country
-   *
-   * Ataque: Error 429 (Too Many Requests)
-   * Objetivo: Probar manejo de rate limiting
-   *
-   * El frontend debe:
-   * - Detectar error 429
-   * - Leer Retry-After header
-   * - Implementar backoff exponencial
-   * - Informar al usuario del límite
-   */
   async getRateLimitError (req: Request, res: Response, next: NextFunction): Promise<void> {
     const country = req.params.country || 'Madrid'
     const result = await this.service.getRateLimitError(country)
